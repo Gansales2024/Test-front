@@ -1,6 +1,6 @@
 <template>
 
-  <sl-vue-tree-next v-model="updatedThemes" ref="tree" style="height: 100vh; width: 60vw; margin: 20px auto; padding: 10px" @drop="nodeDropped" @select="nodeSelected" >
+  <sl-vue-tree-next v-model="updatedThemes" ref="tree" style="height: 100vh;float:left;width: 30%; max-width: 50%; margin: 20px auto; padding: 10px" @drop="nodeDropped" @select="nodeSelected"  >
     <template #title="{ node }">
                             <span class="item-icon">
                               <i v-if="!node.isLeaf" class="fa fa-folder"></i>
@@ -19,7 +19,7 @@
     </template>
 
     <template #sidebar="{ node }">
-                            <span class="visible-icon" style="display: flex; justify-content: space-between; align-items: center; float: right" >
+                            <span class="visible-icon" style="display: flex; justify-content: flex-end; align-items: center; float: right" >
                                <i  class="fa fa-edit" style="margin-right: 5px"></i>
                                <i  class="fa fa-trash" v-if="!node.isLeaf&& node.children.length===0 "></i>
                             </span>

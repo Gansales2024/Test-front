@@ -1,17 +1,19 @@
 <template>
   <header class="header app__header bg-[#e5e5e5] dark:bg-[#212121]" >
 
-    <p style="user-select: none; font-weight: bold">Test Project</p>
+    <p style="user-select: none; font-weight: bold" class="text-indigo-500">Test Project</p>
     <div class="header__right">
-<!--      <el-avatar>{{props.name[0].toUpperCase()}}</el-avatar>-->
-      <el-avatar>U</el-avatar>
+      <el-avatar>{{props.name[0].toUpperCase()}}</el-avatar>
       <el-dropdown trigger="click">
-<!--        <p class="header__user">{{props.name}}  <el-icon> <arrow-down/></el-icon></p>-->
-        <p class="header__user">User <el-icon> <arrow-down/></el-icon></p>
+        <p class="header__user">{{props.name}}  <el-icon> <arrow-down/></el-icon></p>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item :icon="dark?'Sunny':'Moon'" @click="changeTheme">Change Theme </el-dropdown-item>
-            <el-dropdown-item :icon="SwitchButton" @click="logOutFunc">Logout</el-dropdown-item>
+            <el-dropdown-item :icon="QuestionFilled">Добавить вопрос</el-dropdown-item>
+            <el-dropdown-item :icon="Folder">Добавить тематику</el-dropdown-item>
+            <el-dropdown-item :icon="EditPen" >Модерация вопросов</el-dropdown-item>
+            <el-dropdown-item :icon="User" @click="goToUsers">Управление пользователями</el-dropdown-item>
+            <el-dropdown-item :icon="dark?'Sunny':'Moon'" @click="changeTheme">Сменить тему </el-dropdown-item>
+            <el-dropdown-item :icon="SwitchButton" @click="logOutFunc">Выйти</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -21,24 +23,27 @@
 
 <script setup>
 
-const router = useRouter()
-const route = useRoute()
-import {SwitchButton} from "@element-plus/icons-vue";
+
+import {EditPen, Folder, QuestionFilled, SwitchButton, User} from "@element-plus/icons-vue";
 import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
+import {useAuthStore} from "../../store/AuthStore.js";
 const dark= ref(false)
-
-
+const router = useRouter()
+const route = useRoute()
+const AuthStore = useAuthStore()
 const props = defineProps({
   name: String,
   type: String
 })
 
+const goToUsers = () => {
+  router.push({name:"Users"})
+}
 
 const logOutFunc = () => {
-  router.push({name: "auth"})
-
-  // localStorage.clear()
+  router.push({name: "Auth"})
+  AuthStore.logOut()
 }
 
 const changeTheme = () => {

@@ -44,6 +44,9 @@ axios.interceptors.response.use(response => {
 )
 
 export  const logIn =  async (data) => {
-    return  await axios.post(`/auth/token`, data,
-        {headers: {"Content-Type":"application/x-www-form-urlencoded"}})
+    return  await axios.post(`/signin`, data)
+}
+
+export  const getUsers =  async () => {
+    return  await axios.get(`/users/`)
 }
